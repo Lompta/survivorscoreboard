@@ -1,0 +1,21 @@
+{
+  "name": "survivor_scoreboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "6.2.0"
+  },
+  "dependencies": {
+    "bufferutil": "3.0.3",
+    "express": "4.16.2",
+    "utf-8-validate": "4.0.0",
+    "ws": "5.0.0"
+  }
+}

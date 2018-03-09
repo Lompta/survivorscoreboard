@@ -1,0 +1,30 @@
+<html>
+  <body>
+    <label>Coder Justis</label>
+    <div id='Justis'></div>
+    <label>Commissioner Max</label>
+    <div id='Max'></div>
+    <label>Usurper Marshawn</label>
+    <div id='Marshawn'></div>
+    <label>Max's Friend</label>
+    <div id="Alec"></div>
+  </body>
+</html>
+
+<script>
+  var HOST = location.origin.replace(/^http/, 'ws')
+  var ws = new WebSocket(HOST);
+
+  ws.onmessage = function (event) {
+    var data = event.data.split(":");
+    var person = data[0];
+    var score = data[1];
+
+    var el = document.getElementById(person);
+    el.innerHTML = score;
+  };
+
+  function scrungulars(person, score) {
+    ws.send(person + ":" + score);
+  }
+</script>
