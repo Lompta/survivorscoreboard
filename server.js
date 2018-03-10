@@ -36,6 +36,7 @@ wss.on('connection', (ws) => {
 
   // Have some scores!
   dbClient.query('SELECT * FROM drafter', (err, res) => {
+    console.log(res);
     if (err) throw err;
     for (let row of res.rows) {
       wss.clients.forEach((client) => {
