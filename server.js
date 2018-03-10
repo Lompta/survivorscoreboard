@@ -18,18 +18,18 @@ const server = express()
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-// Database initialization with heroku postgres
-const { Client } = require('pg');
-
-const dbClient = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
 const wss = new SocketServer({ server });
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
+
+  // Database initialization with heroku postgres
+  const { Client } = require('pg');
+
+  const dbClient = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
 
   // Now that you're connected, connect to the database.
   dbClient.connect();
@@ -52,6 +52,14 @@ wss.on('connection', (ws) => {
     var splitData = data.split(":");
     var name = splitData[0];
     var score = splitData[1];
+
+    // Database initialization with heroku postgres
+    const { Client } = require('pg');
+
+    const dbClient = new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: true,
+    });
 
     dbClient.connect();
     // score update involves first and last name, so is contestant
