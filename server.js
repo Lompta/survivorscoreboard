@@ -89,6 +89,10 @@ wss.on('connection', (ws) => {
         dbClient.end();
       });
 
+      wss.clients.forEach((client) => {
+        client.send(drafterName + ":" + newDrafterTotal);
+      });
+
     } else {
       // Change some drafter scores!
       dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
