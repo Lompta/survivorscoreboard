@@ -75,6 +75,7 @@ wss.on('connection', (ws) => {
 
         // Update drafter score based on new player scores.
         let newDrafterTotal = 0;
+        console.log("HERE IS THE RES");
         console.log(res);
         let drafterName = res.rows[0].drafterName;
         console.log(drafterName);
