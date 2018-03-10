@@ -22,6 +22,29 @@ const wss = new SocketServer({ server });
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
+
+  // Database initialization with heroku postgres
+  const { Client } = require('pg');
+
+  const dbClient = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  // Now that you're connected, connect to the database.
+  dbClient.connect();
+
+  // Have some scores!
+  dbClient.query('SELECT * FROM drafter', (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      wss.clients.forEach((client) => {
+        client.send(row.name + ":" + row.score);
+      });
+    }
+    dbClient.end();
+  });
+
   ws.on('close', () => console.log('Client disconnected'));
 
   ws.on('message', function incoming(data){
@@ -29,24 +52,4 @@ wss.on('connection', (ws) => {
       client.send(data);
     });
   });
-});
-
-// Database initialization with heroku postgres
-const { Client } = require('pg');
-
-const dbClient = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
-dbClient.connect();
-
-dbClient.query('SELECT * FROM drafter', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    wss.clients.forEach((client) => {
-      client.send(row.name + ":" + row.score);
-    });
-  }
-  dbClient.end();
 });
