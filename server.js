@@ -76,16 +76,15 @@ wss.on('connection', (ws) => {
         // Update drafter score based on new player scores.
         let newDrafterTotal = 0;
         let drafterName = res.rows[0].drafterName;
-        dbClient.query("SELECT score from player where drafterName = '" + drafterName + "'", (err, res => {
+        dbClient.query("SELECT score from player where drafterName = '" + drafterName + "'", (err, res) => {
           for (let row of res.rows) {
             newDrafterTotal += row.score;
 
-            db.client.query("UPDATE drafter SET score = " + newDrafterTotal + " WHERE name = '" + drafterName + "'", (err, res => {
+            db.client.query("UPDATE drafter SET score = " + newDrafterTotal + " WHERE name = '" + drafterName + "'", (err, res) => {
               wss.clients.forEach((client) => {
                 client.send(row.name + ":" + row.score);
               });
             });
-            );
           }
         });
 
