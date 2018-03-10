@@ -88,10 +88,10 @@ wss.on('connection', (ws) => {
         });
 
         dbClient.end();
-      });
 
-      wss.clients.forEach((client) => {
-        client.send(drafterName + ":" + newDrafterTotal);
+        wss.clients.forEach((client) => {
+          client.send(drafterName + ":" + newDrafterTotal);
+        });
       });
 
     } else {
