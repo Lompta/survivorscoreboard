@@ -6,46 +6,66 @@
   <body>
     <label>JDM</label>
     <div id="Justis">
-      <input></input><button class="btn btn-primary">Submit</button>
+      <input></input><button class="btn btn-primary submit">Submit</button>
     </div>
     <label>MAX</label>
     <div id="Max">
-      <input></input><button class="btn btn-primary">Submit</button>
+      <input></input><button class="btn btn-primary submit">Submit</button>
     </div>
     <label>MSN</label>
     <div id="Marshawn">
-      <input></input><button class="btn btn-primary">Submit</button>
+      <input></input><button class="btn btn-primary submit">Submit</button>
+      <button class="btn btn-primary plus" add-val="1">+1</button>
+      <button class="btn btn-primary plus" add-val="3">+3</button>
+      <button class="btn btn-primary plus" add-val="5">+5</button>
+      <button class="btn btn-primary plus" add-val="6">+6</button>
+      <button class="btn btn-primary plus" add-val="10">+10</button>
+      <button class="btn btn-primary plus" add-val="20">+20</button>
     </div>
     <label>MF</label>
     <div id="Alec">
-      <input></input><button class="btn btn-primary">Submit</button>
+      <input></input><button class="btn btn-primary submit">Submit</button>
     </div>
   </body>
 </html>
 
 <script>
   $(document).ready(function() {
-    $("#Justis button").on("click", function(){
-      updateScore("Justis", $("#Justis input").val());
+    $(".submit").on("click", function(){
+      updateScore($(this).parent().attr("id"), $("#" + $(this).parent()attr("id") + " input").val());
     });
-    $("#Max button").on("click", function(){
-      updateScore("Max", $("#Max input").val());
-    });
-    $("#Marshawn button").on("click", function(){
-      updateScore("Marshawn", $("#Marshawn input").val());
-    });
-    $("#Alec button").on("click", function(){
-      updateScore("Alec", $("#Alec input").val());
+
+    $(".plus").on("click", function() {
+      var playerNameString = $(this).parent().attr("id");
+      updateScore(playerNameString, scores[playerNameString] + this.attr("add-val"));
     });
   });
 </script>
 
 <script>
+  var scores = {
+    Justis: 0,
+    Alec: 0,
+    Marshawn: 0,
+    Max: 0,
+  }
+
   var HOST = location.origin.replace(/^http/, 'ws')
   var ws = new WebSocket(HOST);
 
   ws.onmessage = function (event) {
-    console.log(event.data);
+    var splitData = event.data.split(":");
+    var name = splitData[0];
+    var score = splitData[1];
+    if (name === "Justis") {
+      scores.Justis = score;
+    } else if (name === "Alec") {
+      scores.Alec = score;
+    } else if (name === "Marshawn") {
+      scores.Marshawn = score;
+    } else if (name === "Max") {
+      scores.Max = score;
+    }
   };
 
   function updateScore(person, score) {
