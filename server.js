@@ -75,8 +75,6 @@ wss.on('connection', (ws) => {
 
         // Update drafter score based on new player scores.
         let newDrafterTotal = 0;
-        console.log("HERE IS THE RES");
-        console.log(res);
         let drafterName = res.rows[0].drafterName;
         console.log(drafterName);
         dbClient.query("SELECT * from player where drafterName = '" + drafterName + "'", (err, res) => {
@@ -98,11 +96,11 @@ wss.on('connection', (ws) => {
       // Change some drafter scores!
       dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
         if (err) throw err;
-        for (let row of res.rows) {
-          wss.clients.forEach((client) => {
-            client.send(row.name + ":" + row.score);
-          });
-        }
+        //for (let row of res.rows) {
+        //  wss.clients.forEach((client) => {
+        //    client.send(row.name + ":" + row.score);
+        //  });
+        // }
         dbClient.end();
       });
     }
