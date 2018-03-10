@@ -72,10 +72,27 @@ wss.on('connection', (ws) => {
             client.send(row.name + ":" + row.score);
           });
         }
+
+        // Update drafter score based on new player scores.
+        let newDrafterTotal = 0;
+        let drafterName = res.rows[0].drafterName;
+        dbClient.query("SELECT score from player where drafterName = '" + drafterName + "'", (err, res => {
+          for (let row of res.rows) {
+            newDrafterTotal += row.score;
+
+            db.client.query("UPDATE drafter SET score = " + newDrafterTotal + " WHERE name = '" + drafterName + "'", (err, res => {
+              wss.clients.forEach((client) => {
+                client.send(row.name + ":" + row.score);
+              });
+            });
+            );
+          }
+        });
+
         dbClient.end();
       });
     } else {
-      // Change some player scores!
+      // Change some drafter scores!
       dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
@@ -83,6 +100,7 @@ wss.on('connection', (ws) => {
             client.send(row.name + ":" + row.score);
           });
         }
+      );
         dbClient.end();
       });
     }
