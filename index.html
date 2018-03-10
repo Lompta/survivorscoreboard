@@ -20,6 +20,7 @@
   var ws = new WebSocket(HOST);
 
   ws.onmessage = function (event) {
+    console.log(event.data);
     var data = event.data.split(":");
     var person = data[0];
     var score = data[1];

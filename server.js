@@ -44,7 +44,6 @@ dbClient.connect();
 dbClient.query('SELECT * FROM drafter', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
-    console.log(row.name);
     wss.clients.forEach((client) => {
       client.send(row.name + ":" + row.score);
     });
