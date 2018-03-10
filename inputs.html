@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Survivor Draft Inputs - A True Commishportunity</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <label>JDM</label>
+    <div id="Justis">
+      <input></input><button class="btn btn-primary">Submit</button>
+    </div>
+    <label>MAX</label>
+    <div id="Max">
+      <input></input><button class="btn btn-primary">Submit</button>
+    </div>
+    <label>MSN</label>
+    <div id="Marshawn">
+      <input></input><button class="btn btn-primary">Submit</button>
+    </div>
+    <label>MF</label>
+    <div id="Alec">
+      <input></input><button class="btn btn-primary">Submit</button>
+    </div>
+  </body>
+</html>
+
+<script>
+  $(document).ready(function() {
+    $("#Justis button").on("click", function(){
+      updateScore("Justis", $("#Justis input").val());
+    });
+    $("#Max button").on("click", function(){
+      updateScore("Max", $("#Max input").val());
+    });
+    $("#Marshawn button").on("click", function(){
+      updateScore("Marshawn", $("#Marshawn input").val());
+    });
+    $("#Alec button").on("click", function(){
+      updateScore("Alec", $("#Alec input").val());
+    });
+  });
+</script>
+
+<script>
+  var HOST = location.origin.replace(/^http/, 'ws')
+  var ws = new WebSocket(HOST);
+
+  ws.onmessage = function (event) {
+    console.log(event.data);
+  };
+
+  function updateScore(person, score) {
+    ws.send(person + ":" + score);
+  }
+</script>

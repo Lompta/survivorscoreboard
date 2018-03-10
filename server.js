@@ -6,9 +6,16 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
+const INPUTS = path.join(__dirname, 'inputs.html');
 
 const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
+  .use((req, res) => {
+    if (req.url === "/inputs") {
+      res.sendFile(INPUTS);
+    } else {
+      res.sendFile(INDEX);
+    }
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const wss = new SocketServer({ server });

@@ -1,12 +1,16 @@
 <html>
-  <body>
-    <label>Coder Justis</label>
+  <head>
+    <title>Survivor Draft!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body style="background-color: black; color: white;">
+    <label>JDM</label>
     <div id='Justis'></div>
-    <label>Commissioner Max</label>
+    <label>MAX</label>
     <div id='Max'></div>
-    <label>Usurper Marshawn</label>
+    <label>MSN</label>
     <div id='Marshawn'></div>
-    <label>Max's Friend</label>
+    <label>MF</label>
     <div id="Alec"></div>
   </body>
 </html>
@@ -20,8 +24,8 @@
     var person = data[0];
     var score = data[1];
 
-    var el = document.getElementById(person);
-    el.innerHTML = score;
+    $("#" + person).html(score);
+    $("#" + person).fadeIn(100).fadeOut(100).fadeIn(100);
   };
 
   function scrungulars(person, score) {
