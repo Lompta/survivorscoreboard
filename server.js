@@ -48,5 +48,5 @@ dbClient.query('SELECT * FROM drafter', (err, res) => {
       client.send(row.name + ":" + row.score);
     });
   }
-  client.end();
+  dbClient.end();
 });
