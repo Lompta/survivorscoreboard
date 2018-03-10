@@ -75,6 +75,7 @@ wss.on('connection', (ws) => {
 
         // Update drafter score based on new player scores.
         let newDrafterTotal = 0;
+        console.log(res);
         let drafterName = res.rows[0].drafterName;
         console.log(drafterName);
         dbClient.query("SELECT * from player where drafterName = '" + drafterName + "'", (err, res) => {
