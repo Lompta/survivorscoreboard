@@ -64,8 +64,8 @@ wss.on('connection', (ws) => {
     dbClient.connect();
     // score update involves first and last name, so is contestant
     if (splitData[0].split(" ").length > 1) {
-      // Have some scores!
-      dbClient.query('UPDATE player SET score = ' + score + ' WHERE name = ' + name, (err, res) => {
+      // Change some scores!
+      dbClient.query("UPDATE player SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
           wss.clients.forEach((client) => {
@@ -75,8 +75,8 @@ wss.on('connection', (ws) => {
         dbClient.end();
       });
     } else {
-      // Have some player scores!
-      dbClient.query('UPDATE drafter SET score = ' + score + ' WHERE name = ' + name, (err, res) => {
+      // Change some player scores!
+      dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
           wss.clients.forEach((client) => {
