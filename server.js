@@ -99,7 +99,6 @@ wss.on('connection', (ws) => {
             client.send(row.name + ":" + row.score);
           });
         }
-      );
         dbClient.end();
       });
     }
