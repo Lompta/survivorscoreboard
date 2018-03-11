@@ -37,7 +37,7 @@
 
     $(".plus").on("click", function() {
       var playerNameString = $(this).parent().attr("id");
-      updateScore(playerNameString, scores[playerNameString] + this.attr("add-val"));
+      updateScore(playerNameString, scores[playerNameString] + $(this).attr("add-val"));
     });
   });
 </script>
