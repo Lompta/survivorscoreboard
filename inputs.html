@@ -7,14 +7,29 @@
     <label>JDM</label>
     <div id="Justis">
       <input></input><button class="btn btn-primary submit">Submit</button>
+      <br />
+      <button class="btn btn-primary plus" add-val="1">+1</button>
+      <button class="btn btn-primary plus" add-val="3">+3</button>
+      <button class="btn btn-primary plus" add-val="5">+5</button>
+      <button class="btn btn-primary plus" add-val="6">+6</button>
+      <button class="btn btn-primary plus" add-val="10">+10</button>
+      <button class="btn btn-primary plus" add-val="20">+20</button>
     </div>
     <label>MAX</label>
     <div id="Max">
       <input></input><button class="btn btn-primary submit">Submit</button>
+      <br />
+      <button class="btn btn-primary plus" add-val="1">+1</button>
+      <button class="btn btn-primary plus" add-val="3">+3</button>
+      <button class="btn btn-primary plus" add-val="5">+5</button>
+      <button class="btn btn-primary plus" add-val="6">+6</button>
+      <button class="btn btn-primary plus" add-val="10">+10</button>
+      <button class="btn btn-primary plus" add-val="20">+20</button>
     </div>
     <label>MSN</label>
     <div id="Marshawn">
       <input></input><button class="btn btn-primary submit">Submit</button>
+      <br />
       <button class="btn btn-primary plus" add-val="1">+1</button>
       <button class="btn btn-primary plus" add-val="3">+3</button>
       <button class="btn btn-primary plus" add-val="5">+5</button>
@@ -25,6 +40,13 @@
     <label>MF</label>
     <div id="Alec">
       <input></input><button class="btn btn-primary submit">Submit</button>
+      <br />
+      <button class="btn btn-primary plus" add-val="1">+1</button>
+      <button class="btn btn-primary plus" add-val="3">+3</button>
+      <button class="btn btn-primary plus" add-val="5">+5</button>
+      <button class="btn btn-primary plus" add-val="6">+6</button>
+      <button class="btn btn-primary plus" add-val="10">+10</button>
+      <button class="btn btn-primary plus" add-val="20">+20</button>
     </div>
   </body>
 </html>
@@ -32,12 +54,12 @@
 <script>
   $(document).ready(function() {
     $(".submit").on("click", function(){
-      updateScore($(this).parent().attr("id"), $("#" + $(this).parent().attr("id") + " input").val());
+      updateScore($(this).parent().attr("id"), $("#" + $(this).parent().attr("id") * 1 + " input").val() * 1);
     });
 
     $(".plus").on("click", function() {
       var playerNameString = $(this).parent().attr("id");
-      updateScore(playerNameString, scores[playerNameString] + $(this).attr("add-val"));
+      updateScore(playerNameString, scores[playerNameString] * 1 + $(this).attr("add-val") * 1);
     });
   });
 </script>
