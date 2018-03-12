@@ -41,16 +41,27 @@ wss.on('connection', (ws) => {
   // Now that you're connected, connect to the database.
   dbClient.connect();
 
-  // Have some scores!
+  // Have some drafter scores!
   dbClient.query('SELECT * FROM drafter', (err, res) => {
-    console.log(res);
     if (err) throw err;
     for (let row of res.rows) {
       wss.clients.forEach((client) => {
         client.send(row.name + ":" + row.score);
       });
     }
-    dbClient.end();
+
+    // some player scores, too!
+    dbClient.query('SELECT * FROM player', (playerErr, playerRes) => {
+      if (playerErr) throw playerErr;
+      for (let row of res.rows) {
+        wss.clients.forEach((client) => {
+          client.send(row.name + ":" + row.score);
+        });
+      }
+
+      // We got 'em all, we can close the connection now.
+      dbClient.end();
+    });
   });
 
   ws.on('close', () => console.log('Client disconnected'));
