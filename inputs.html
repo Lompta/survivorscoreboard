@@ -253,7 +253,7 @@
 
       // add players to score tracking for button presses
       for (let player in players) {
-        scores[player.name] = player.score;
+        scores[players[player].name] = players[player].score;
       }
 
       createPlayerControls(players);
