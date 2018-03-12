@@ -48,6 +48,29 @@
       <button class="btn btn-primary plus" add-val="10">+10</button>
       <button class="btn btn-primary plus" add-val="20">+20</button>
     </div>
+
+    <br />
+
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
+    <div class="playerPartition"></div>
   </body>
 </html>
 
@@ -64,7 +87,20 @@
       updateScore(playerNameString, scores[playerNameString] * 1 + $(this).attr("add-val") * 1);
     });
 
-    $.get("/getAllPlayerData");
+    $.get("/getAllPlayerData", function(data) {
+      players = JSON.parse(data);
+
+      createPlayerControls(players);
+    });
+
+    createPlayerControls(players) {
+      var playerPartitions = $(".playerPartitions");
+      for (var i = 0; i < players.length; i++) {
+        var partition = $(playerPartitions[i]);
+        partition.html(players[i].name);
+        partition.attr("player-name", players[i].name);
+      }
+    }
   });
 </script>
 
