@@ -258,7 +258,7 @@
       var playerPartitions = $(".playerPartition");
       for (var i = 0; i < players.length; i++) {
         var partition = $(playerPartitions[i]);
-        partition.html(players[i].name);
+        partition.html("<label>" + players[i].name + "</label>" + partition.html());
         partition.attr("id", players[i].name);
       }
     }
