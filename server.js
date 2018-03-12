@@ -104,7 +104,18 @@ function getAllPlayerData() {
     if (err) throw err;
     dbClient.end();
 
-    var response = JSON.stringify(resp.rows);
+    var responseObject = [];
+    for (let row of resp.rows) {
+      responseObject.push({
+        name: row.name,
+        drafterName: row.draftername,
+        score: row.score,
+        eliminated: row.eliminated
+      });
+    }
+
+    var response = JSON.stringify(responseObject);
+    console.log(response);
     return response;
   });
 }
