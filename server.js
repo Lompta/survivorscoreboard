@@ -11,7 +11,7 @@ const INPUTS = path.join(__dirname, 'inputs.html');
 const server = express()
   .use((req, res) => {
     var url = req.url;
-    switch req.url {
+    switch url {
       case "/inputs":
         res.sendFile(INPUTS);
         break;
