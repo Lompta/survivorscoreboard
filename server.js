@@ -16,7 +16,7 @@ const server = express()
         res.sendFile(INPUTS);
         break;
       case "/getAllPlayerData":
-        res.send(getAllPlayerData());
+        res.json(getAllPlayerData());
         break;
       default:
         res.sendFile(INDEX);
