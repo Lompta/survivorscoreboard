@@ -105,6 +105,6 @@ function getAllPlayerData() {
     dbClient.end();
 
     var response = JSON.stringify(resp.rows);
-    return repsonse;
+    return response;
   });
 }
