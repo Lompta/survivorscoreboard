@@ -63,6 +63,8 @@
       var playerNameString = $(this).parent().attr("id");
       updateScore(playerNameString, scores[playerNameString] * 1 + $(this).attr("add-val") * 1);
     });
+
+    $.get("/getAllPlayerData");
   });
 </script>
 
@@ -73,6 +75,8 @@
     Marshawn: 0,
     Max: 0,
   }
+
+  var players = {};
 
   var HOST = location.origin.replace(/^http/, 'ws')
   var ws = new WebSocket(HOST);

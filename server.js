@@ -10,11 +10,18 @@ const INPUTS = path.join(__dirname, 'inputs.html');
 
 const server = express()
   .use((req, res) => {
-    if (req.url === "/inputs") {
-      res.sendFile(INPUTS);
-    } else {
-      res.sendFile(INDEX);
-    }
+    var url = req.url;
+    switch req.url {
+      case "/inputs":
+        res.sendFile(INPUTS);
+        break;
+      case "/getAllPlayerData":
+        res.send(getAllPlayerData());
+        break;
+      default:
+        res.sendFile(INDEX);
+        break;
+      }
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
@@ -82,3 +89,7 @@ wss.on('connection', (ws) => {
     });
   });
 });
+
+function getAllPlayerData() {
+  return "Get the player data here!";
+}
