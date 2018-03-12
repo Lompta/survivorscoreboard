@@ -82,6 +82,7 @@ wss.on('connection', (ws) => {
     dbClient.connect();
     // score update involves first and last name, so is contestant
     if (splitData[0].split(" ").length > 1) {
+      console.log("attempted to change score of " name + " to " + score);
       // Change some scores!
       dbClient.query("UPDATE player SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
         if (err) throw err;

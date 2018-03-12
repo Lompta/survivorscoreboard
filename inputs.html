@@ -304,7 +304,7 @@
       for (let player in players) {
         if (players[player].name === name) {
           scores[players[player].name] = score;
-          player.score = score;
+          players[player].score = score;
           console.log(players[player] + "'s score set to " + score);
         }
       }
