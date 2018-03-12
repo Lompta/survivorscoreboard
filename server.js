@@ -91,5 +91,14 @@ wss.on('connection', (ws) => {
 });
 
 function getAllPlayerData() {
-  return "Get the player data here!";
+  // Now that you're connected, connect to the database.
+  dbClient.connect();
+
+  // Have some scores!
+  dbClient.query('SELECT * FROM player', (err, res) => {
+    if (err) throw err;
+    dbClient.end();
+
+    return res.toString();
+  });
 }
