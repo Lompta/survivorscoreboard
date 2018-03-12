@@ -16,7 +16,7 @@ const server = express()
         res.sendFile(INPUTS);
         break;
       case "/getAllPlayerData":
-        res.json(getAllPlayerData());
+        getAllPlayerData(res);
         break;
       default:
         res.sendFile(INDEX);
@@ -90,7 +90,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-function getAllPlayerData() {
+function getAllPlayerData(expressResponse) {
   const { Client } = require('pg');
 
   const dbClient = new Client({
@@ -115,7 +115,6 @@ function getAllPlayerData() {
     }
 
     var response = JSON.stringify(responseObject);
-    console.log(response);
-    return response;
+    return expressResponse.json(response);
   });
 }
