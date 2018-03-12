@@ -239,7 +239,7 @@
   $(document).ready(function() {
     $(".submit").on("click", function(){
       if (!isNaN($("#" + $(this).parent().attr("id") + " input").val())) {
-        updateScore($(this).parent().attr("id"), $("#" + $(this).parent().attr("id") + " input").val());
+        updateScore($(this).parent().attr("id"), $($(this).siblings("input")[0]).val());
       }
     });
 
@@ -305,7 +305,7 @@
         if (players[player].name === name) {
           scores[players[player].name] = score;
           players[player].score = score;
-          console.log(players[player] + "'s score set to " + score);
+          console.log(players[player].name + "'s score set to " + score);
         }
       }
     }
