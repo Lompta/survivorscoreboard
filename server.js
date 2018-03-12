@@ -100,12 +100,13 @@ function getAllPlayerData() {
 
   dbClient.connect();
 
-  dbClient.query('SELECT * FROM player', (err, res) => {
+  dbClient.query('SELECT * FROM player', (err, resp) => {
     if (err) throw err;
     dbClient.end();
 
-    console.log("here is the response for getAllPlayerData on the server side!")
-    console.log(res.toString);
-    return res.toString();
+    console.log("player data incoming");
+    for (let row of resp.rows) {
+      console.log(row);
+    }
   });
 }
