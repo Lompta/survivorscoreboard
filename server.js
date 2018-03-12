@@ -104,9 +104,7 @@ function getAllPlayerData() {
     if (err) throw err;
     dbClient.end();
 
-    console.log("player data incoming");
-    for (let row of resp.rows) {
-      console.log(row);
-    }
+    var response = JSON.stringify(resp.rows);
+    return repsonse;
   });
 }
