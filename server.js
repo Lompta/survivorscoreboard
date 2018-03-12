@@ -91,10 +91,15 @@ wss.on('connection', (ws) => {
 });
 
 function getAllPlayerData() {
-  // Now that you're connected, connect to the database.
+  const { Client } = require('pg');
+
+  const dbClient = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
   dbClient.connect();
 
-  // Have some scores!
   dbClient.query('SELECT * FROM player', (err, res) => {
     if (err) throw err;
     dbClient.end();
