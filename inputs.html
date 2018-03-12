@@ -346,6 +346,14 @@
           scores[players[player].name] = score;
           players[player].score = score;
           console.log(players[player].name + "'s score set to " + score);
+
+          // IDs are not indexed through jquery so we need to brute force search to update
+          var playerPartitions = $(".playerPartition");
+          for (var i = 0; i < playerPartitions.length; i++) {
+            if ($(playerPartitions[i]).attr("id") === name) {
+              $($(playerPartitions[i]).children("input")[0]).val(score);
+            }
+          }
         }
       }
     }
