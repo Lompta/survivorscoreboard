@@ -249,7 +249,7 @@
     });
 
     $.get("/getAllPlayerData", function(data) {
-      var players = JSON.parse(data);
+      players = JSON.parse(data);
 
       // add players to score tracking for button presses
       for (let player in players) {
@@ -278,7 +278,7 @@
     Max: 0,
   }
 
-  var players = {};
+  var players = [];
 
   var HOST = location.origin.replace(/^http/, 'ws')
   var ws = new WebSocket(HOST);
