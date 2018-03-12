@@ -278,7 +278,7 @@
 <script>
   $(document).ready(function() {
     $(".submit").on("click", function(){
-      if (!isNaN($("#" + $(this).parent().attr("id") + " input").val())) {
+      if (!isNaN($($(this).siblings("input")[0]).val())) {
         updateScore($(this).parent().attr("id"), $($(this).siblings("input")[0]).val());
       }
     });
