@@ -361,6 +361,18 @@
   };
 
   function updateScore(person, score) {
+    // Placeholder - set this with checkbox eventually.
+    var updateDrafterOnUpdatePlayer = true;
     ws.send(person + ":" + score);
+
+    if(updateDrafterOnUpdatePlayer) {
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].name === person) {
+          var drafter = players[i].drafterName;
+          var scoreDifference = score - players[i].score * 1;
+          ws.send(drafter + ":" + (scores[drafter] * 1 + scoreDifference * 1));
+        }
+      }
+    }
   }
 </script>
