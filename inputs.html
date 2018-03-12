@@ -304,7 +304,7 @@
       for (var i = 0; i < players.length; i++) {
         var partition = $(playerPartitions[i]);
         $(partition.children("label")[0]).html(players[i].name);
-        $(partition.children("input")[0]).html(players[i].score);
+        $(partition.children("input")[0]).val(players[i].score);
         partition.attr("id", players[i].name);
       }
     }
