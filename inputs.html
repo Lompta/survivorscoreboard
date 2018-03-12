@@ -251,6 +251,11 @@
     $.get("/getAllPlayerData", function(data) {
       var players = JSON.parse(data);
 
+      // add players to score tracking for button presses
+      for (let player in players) {
+        scores[player.name] = player.score;
+      }
+
       createPlayerControls(players);
     });
 
@@ -258,7 +263,7 @@
       var playerPartitions = $(".playerPartition");
       for (var i = 0; i < players.length; i++) {
         var partition = $(playerPartitions[i]);
-        partition.html("<label>" + players[i].name + "</label>" + partition.html());
+        partition.html("<label>" + players[i].name + "</label><br />" + partition.html());
         partition.attr("id", players[i].name);
       }
     }
@@ -298,6 +303,7 @@
       // it's a player
       for (let player in players) {
         if (player.name === name) {
+          scores[player.name] = score;
           player.score = score;
           console.log(player + "'s score set to " + score);
         }
