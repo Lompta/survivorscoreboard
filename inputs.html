@@ -300,6 +300,22 @@
       </div>
     <hr />
     </div>
+
+    <div id="controls" class="row">
+      <div class="col-sm-4">
+        <label>
+          Auto Sync<input type="checkbox" id="auto-sync" checked="checked"></input>
+        </label>
+      </div>
+      <div class="col-sm-4">
+        <button class="btn btn-default" id="sync">Sync</button>
+      </div>
+      <div class="col-sm-4">
+        <label>
+          Hide Eliminated<input type="checkbox" id="hide-elim"</input>
+        </label>
+      </div>
+    </div>
   </body>
 </html>
 
@@ -315,6 +331,15 @@
       var playerNameString = $(this).parent().attr("id");
       updateScore(playerNameString, scores[playerNameString] * 1 + $(this).attr("add-val") * 1);
     });
+
+    $("#hide-elim").change(function() {
+      if(this.checked) {
+        $(".eliminated").hide();
+      }
+      else {
+        $(".eliminated").show();
+      }
+    })
 
     $.get("/getAllPlayerData", function(data) {
       players = JSON.parse(data);
@@ -351,6 +376,9 @@
       var playerPartitions = $(".playerPartition");
       for (var i = 0; i < players.length; i++) {
         var partition = $(playerPartitions[i]);
+        if(players[i].eliminated) {
+          partition.addClass("eliminated");
+        }
         $(partition.children("label")[0]).html(players[i].name);
         $(partition.children("input")[0]).val(players[i].score);
         partition.attr("id", players[i].name);
@@ -410,7 +438,7 @@
 
   function updateScore(person, score) {
     // Placeholder - set this with checkbox eventually.
-    var updateDrafterOnUpdatePlayer = true;
+    var updateDrafterOnUpdatePlayer = $("#auto-sync").is(":checked");
     ws.send(person + ":" + score);
 
     if(updateDrafterOnUpdatePlayer) {
@@ -422,5 +450,9 @@
         }
       }
     }
+  }
+
+  function syncAllDraftersToPlayers() {
+
   }
 </script>
