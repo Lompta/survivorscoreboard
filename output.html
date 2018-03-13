@@ -44,7 +44,7 @@
       for (var drafter in scores) {
         if (scores.hasOwnProperty(drafter)) {
           // Append player name
-          $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + drafter +":</div>");
+          $("#resultsDiv").html($("#resultsDiv").html() + "<div><strong>" + drafter +":</strong></div>");
 
           // Append surviving contestant scores
           for (var i = 0; i < players.length; i++) {
@@ -69,7 +69,7 @@
           $("#resultsDiv").html($("#resultsDiv").html() + "<br />");
 
           // Append total score
-          $("#resultsDiv").html($("#resultsDiv").html() + "<div>Total: " + scores[drafter] +"</div>");
+          $("#resultsDiv").html($("#resultsDiv").html() + "<div>Total: " + scores[drafter] +"</div><hr />");
         }
       }
     });
