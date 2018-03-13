@@ -7,8 +7,8 @@
   <body>
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <label>JDM</label>
-        <div id="Justis">
+        <label>MF</label>
+        <div id="Alec">
           <input></input><button class="submit">Submit</button>
           <br />
           <button class="plus" add-val="1">+1</button>
@@ -21,8 +21,8 @@
       </div>
 
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <label>MAX</label>
-        <div id="Max">
+        <label>JDM</label>
+        <div id="Justis">
           <input></input><button class="submit">Submit</button>
           <br />
           <button class="plus" add-val="1">+1</button>
@@ -49,8 +49,8 @@
       </div>
 
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <label>MF</label>
-        <div id="Alec">
+        <label>MAX</label>
+        <div id="Max">
           <input></input><button class="submit">Submit</button>
           <br />
           <button class="plus" add-val="1">+1</button>
@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <br />
+    <hr />
 
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-3">
@@ -124,6 +124,7 @@
           <button class="plus" add-val="10">+10</button>
           <button class="plus" add-val="20">+20</button></div>
         </div>
+        <hr />
         <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="playerPartition">
           <label></label>
@@ -181,6 +182,7 @@
           <button class="plus" add-val="10">+10</button>
           <button class="plus" add-val="20">+20</button></div>
         </div>
+      <hr />
       <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="playerPartition">
           <label></label>
@@ -238,6 +240,7 @@
           <button class="plus" add-val="10">+10</button>
           <button class="plus" add-val="20">+20</button></div>
         </div>
+        <hr />
         <div class="col-sm-12 col-md-6 col-lg-3">
         <div class="playerPartition">
           <label></label>
@@ -295,6 +298,7 @@
         <button class="plus" add-val="10">+10</button>
         <button class="plus" add-val="20">+20</button></div>
       </div>
+    <hr />
     </div>
   </body>
 </html>
@@ -319,10 +323,21 @@
         if (a.drafterName < b.drafterName) {
           return -1;
         }
-        else {
+        else if (b.drafterName < a.drafterName) {
           return 1;
+        }
+        else {
+          // the drafters are the same, so put eliminated on the bottom
+          if (a.eliminated && !b.eliminated) {
+            return 1;
+          } else if (b.eliminated && !a.eliminated) {
+            return -1;
           }
-        });
+          else {
+            return 0;
+          }
+        }
+      });
 
       // add players to score tracking for button presses
       for (let player in players) {
