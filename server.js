@@ -30,6 +30,10 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
+  // Managing connection
+  ws.isAlive = true;
+  ws.on('pong', heartbeat);
+
   // Database initialization with heroku postgres
   const { Client } = require('pg');
 
@@ -100,6 +104,23 @@ wss.on('connection', (ws) => {
     });
   });
 });
+
+// Functionality to keep connections alive while open.
+function emptyPing() {}
+
+function heartbeat() {
+  this.isAlive = true;
+}
+
+// Keep connections alive with pings
+const interval = setInterval(function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) return ws.terminate();
+
+    ws.isAlive = false;
+    ws.ping(emptyPing);
+  });
+}, 10000);
 
 function getAllPlayerData(expressResponse) {
   const { Client } = require('pg');
