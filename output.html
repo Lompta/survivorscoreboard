@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Survivor Draft!</title>
+    <title>Survivor Draft Outputs</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
@@ -44,14 +44,14 @@
       for (var drafter in scores) {
         if (scores.hasOwnProperty(drafter)) {
           // Append player name
-          $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + drafter +":</div> <br />");
+          $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + drafter +":</div>");
 
           // Append surviving contestant scores
           for (var i = 0; i < players.length; i++) {
             var player = players[i];
             if (player.drafterName === drafter && !player.eliminated) {
               scores[drafter] += (player.score * 1);
-              $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + player.name +" - " + player.score +"</div> <br />");
+              $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + player.name +" - " + player.score +"</div>");
             }
           }
 
@@ -62,14 +62,14 @@
             var player = players[i];
             if (player.drafterName === drafter && player.eliminated) {
               scores[drafter] += (player.score * 1);
-              $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + player.name +" - " + player.score +"</div> <br />");
+              $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + player.name +" - " + player.score +"</div>");
             }
           }
 
           $("#resultsDiv").html($("#resultsDiv").html() + "<br />");
 
           // Append total score
-          $("#resultsDiv").html($("#resultsDiv").html() + "<div>Total: " + scores[drafter] +"</div> <br />");
+          $("#resultsDiv").html($("#resultsDiv").html() + "<div>Total: " + scores[drafter] +"</div>");
         }
       }
     });
