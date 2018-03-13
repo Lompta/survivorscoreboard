@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Survivor Draft!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="resultsDiv"></div>
+  </body>
+</html>
+
+<script>
+  var HOST = location.origin.replace(/^http/, 'ws')
+  var ws = new WebSocket(HOST);
+
+  ws.onmessage = function (event) {
+    console.log(event.data);
+    var data = event.data.split(":");
+    var person = data[0];
+    var score = data[1];
+  };
+
+  var scores = {
+    Justis: 0,
+    Alec: 0,
+    Marshawn: 0,
+    Max: 0,
+  }
+</script>
+
+<script>
+  $(document).ready(function(){
+    $.get("/getAllPlayerData", function(data) {
+      players = JSON.parse(data);
+      players.sort(function(a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        else {
+          return 1;
+        }
+      })
+
+      // This is inefficient but there's not much data so who cares
+      for (var drafter in scores) {
+        if (scores.hasOwnProperty(drafter)) {
+          // Append player name
+          $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + drafter +":</div> <br />");
+
+          // Append surviving contestant scores
+          for (var i = 0; i < players.length; i++) {
+            var player = players[i];
+            if (player.drafterName === drafter && !player.eliminated) {
+              scores[drafter] += (player.score * 1);
+              $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + player.name +" - " + player.score +"</div> <br />");
+            }
+          }
+
+          $("#resultsDiv").html($("#resultsDiv").html() + "<br />");
+
+          // Append eliminated contestant scores
+          for (var i = 0; i < players.length; i++) {
+            var player = players[i];
+            if (player.drafterName === drafter && player.eliminated) {
+              scores[drafter] += (player.score * 1);
+              $("#resultsDiv").html($("#resultsDiv").html() + "<div>" + player.name +" - " + player.score +"</div> <br />");
+            }
+          }
+
+          $("#resultsDiv").html($("#resultsDiv").html() + "<br />");
+
+          // Append total score
+          $("#resultsDiv").html($("#resultsDiv").html() + "<div>Total: " scores[drafter] +"</div> <br />");
+        }
+      }
+    });
+  });
+</script>

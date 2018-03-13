@@ -7,6 +7,7 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
 const INPUTS = path.join(__dirname, 'inputs.html');
+const OUTPUT = path.join(__dirname, 'output.html');
 
 const server = express()
   .use((req, res) => {
@@ -14,6 +15,9 @@ const server = express()
     switch (url) {
       case "/inputs":
         res.sendFile(INPUTS);
+        break;
+      case "/output":
+        res.sendFile(OUTPUT);
         break;
       case "/getAllPlayerData":
         getAllPlayerData(res);
