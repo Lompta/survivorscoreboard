@@ -75,37 +75,45 @@ wss.on('connection', (ws) => {
   ws.on('close', () => console.log('Client disconnected'));
 
   ws.on('message', function incoming(data){
-    var splitData = data.split(":");
-    var name = splitData[0];
-    var score = splitData[1];
-
-    // Database initialization with heroku postgres
-    const { Client } = require('pg');
-
-    const dbClient = new Client({
-      connectionString: process.env.DATABASE_URL,
-      ssl: true,
-    });
-
-    dbClient.connect();
-    // score update involves first and last name, so is contestant
-    if (splitData[0].split(" ").length > 1) {
-      // Change some scores!
-      dbClient.query("UPDATE player SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
-        if (err) throw err;
-        dbClient.end();
-      });
-    } else {
-      // Change some drafter scores!
-      dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
-        if (err) throw err;
-        dbClient.end();
+    if (data === "BADA BOINGUS") {
+      // Our mission is simple. We must 'Bada Boingus'
+      wss.clients.forEach((client) => {
+        client.send(data);
       });
     }
+    else {
+      var splitData = data.split(":");
+      var name = splitData[0];
+      var score = splitData[1];
 
-    wss.clients.forEach((client) => {
-      client.send(data);
-    });
+      // Database initialization with heroku postgres
+      const { Client } = require('pg');
+
+      const dbClient = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+      });
+
+      dbClient.connect();
+      // score update involves first and last name, so is contestant
+      if (splitData[0].split(" ").length > 1) {
+        // Change some scores!
+        dbClient.query("UPDATE player SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
+          if (err) throw err;
+          dbClient.end();
+        });
+      } else {
+        // Change some drafter scores!
+        dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
+          if (err) throw err;
+          dbClient.end();
+        });
+      }
+
+      wss.clients.forEach((client) => {
+        client.send(data);
+      });
+    }
   });
 });
 

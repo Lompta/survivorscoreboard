@@ -4,14 +4,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body style="background-color: black; color: white; font-size: 30px;">
-    <label>JDM</label>
-    <div id='Justis'></div>
-    <label>MAX</label>
-    <div id='Max'></div>
-    <label>MSN</label>
-    <div id='Marshawn'></div>
-    <label>MF</label>
-    <div id="Alec"></div>
+    <div id="main">
+      <div style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+        <label style="display: inline-block;">MF</label>
+        <div id="Alec" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
+      </div>
+      <br />
+
+      <div style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+        <label style="display: inline-block;">JDM</label>
+        <div id="Justis" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
+      </div>
+      <br />
+
+      <div style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+        <label style="display: inline-block;">MSN</label>
+        <div id="Marshawn" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
+      </div>
+      <br />
+
+      <div style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+        <label style="display: inline-block;">MAX</label>
+        <div id="Max" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
+      </div>
+    </div>
+    <div id="bada-boingus">
+      <div>BADA</div>
+      <div>BOINGUS</div>
+    </div>
   </body>
 </html>
 
@@ -20,12 +40,21 @@
   var ws = new WebSocket(HOST);
 
   ws.onmessage = function (event) {
-    console.log(event.data);
-    var data = event.data.split(":");
-    var person = data[0];
-    var score = data[1];
+    if (event.data === "BADA BOINGUS") {
+      badaBoingus();
+    }
+    else {
+      var data = event.data.split(":");
+      var person = data[0];
+      var score = data[1];
 
-    $("#" + person).html(score);
-    $("#" + person).fadeIn(100).fadeOut(100).fadeIn(100);
+      $("#" + person).html(score);
+      $("#" + person).fadeIn(100).fadeOut(100).fadeIn(100);
+    }
   };
+
+  function badaBoingus() {
+    $("#main").toggle();
+    $("#bada-boingus").toggle();
+  }
 </script>
