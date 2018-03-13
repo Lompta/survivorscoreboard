@@ -5,25 +5,25 @@
   </head>
   <body style="background-color: black; color: white; font-size: 30px;">
     <div id="main">
-      <div slot="0" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+      <div id="slot0" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
         <label id="Alec-label" style="display: inline-block;">MF</label>
         <div id="Alec" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
       </div>
       <br />
 
-      <div slot="1" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+      <div id="slot1" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
         <label id="Justis-label" style="display: inline-block;">JDM</label>
         <div id="Justis" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
       </div>
       <br />
 
-      <div slot="2" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+      <div id="slot2" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
         <label id="Marshawn-label" style="display: inline-block;">MSN</label>
         <div id="Marshawn" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
       </div>
       <br />
 
-      <div slot="3" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
+      <div id="slot3" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
         <label id="Max-label" style="display: inline-block;">MAX</label>
         <div id="Max" style="display: inline-flex; color: limegreen; text-align: right; float: right;"></div>
       </div>
@@ -76,10 +76,10 @@
         }
 
         scores.sort(function(a, b) {
-          if (a.score < b.score) {
+          if (a.score * 1 < b.score * 1) {
             return -1;
           }
-          else if (a.score > b.score) {
+          else if (a.score * 1 > b.score * 1) {
             return 1;
           } else {
             if (a.name < b.name) {
