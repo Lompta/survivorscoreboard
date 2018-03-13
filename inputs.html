@@ -301,16 +301,18 @@
     <hr />
     </div>
 
+    <hr />
+
     <div id="controls" class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <label>
-          Auto Sync<input type="checkbox" id="auto-sync" checked="checked"></input>
+          Auto Sync <input type="checkbox" id="auto-sync" checked="checked"></input>
         </label>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <button class="btn btn-default" id="sync">Sync</button>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <label>
           Hide Eliminated<input type="checkbox" id="hide-elim"</input>
         </label>
@@ -339,7 +341,27 @@
       else {
         $(".eliminated").show();
       }
-    })
+    });
+
+    $("#sync").on("click", function(){
+      var newTotals = {
+        Alec: 0,
+        Justis: 0,
+        Marshawn: 0,
+        Max: 0,
+      };
+
+      for (var i = 0; i < players.length; i++) {
+        newTotals[players[i].drafterName] += players[i].score;
+      }
+
+      for (var newScore in newTotals) {
+        if (newTotals.hasOwnProperty(newScore)) {
+          scores[newScore] = newTotals[newScore];
+          updateScore(newScore + ":" + scores[newScore]);
+        }
+      }
+    });
 
     $.get("/getAllPlayerData", function(data) {
       players = JSON.parse(data);
