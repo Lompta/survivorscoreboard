@@ -3,7 +3,7 @@
     <title>Survivor Draft!</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
-  <body style="background-color: black; color: white; font-size: 30px;">
+  <body style="background-color: black; color: white; font-size: 30px; display: none;">
     <div id="main">
       <div id="slot0" style="border: 1px solid white; display: inline-block; padding: 5px; margin-top: 3px; width: 144px;">
         <label id="Alec-label" style="display: inline-block;">MF</label>
@@ -42,19 +42,23 @@
   var scores = [
     {
       name: "Alec",
-      score: 0
+      score: 0,
+      initialized: false
     },
     {
       name: "Justis",
-      score: 0
+      score: 0,
+      initialized: false
     },
     {
       name: "Marshawn",
-      score: 0
+      score: 0,
+      initialized: false
     },
     {
       name: "Max",
-      score: 0
+      score: 0,
+      initialized: false
     }
   ];
 
@@ -73,6 +77,7 @@
       for (var i = 0; i < scores.length; i++) {
         if (person === scores[i].name) {
           scores[i].score = score;
+          scores[i].initialized = true;
         }
 
         scores.sort(function(a, b) {
@@ -100,6 +105,11 @@
 
       $("#" + person).html(score);
       $("#" + person).fadeIn(100).fadeOut(100).fadeIn(100);
+
+      // don't show the body until all four scores are set up to avoid choppy graphics on page load
+      if (scores[0].initialized && scores[1].initialized && scores[2].initialized && scores[3].initialized) {
+        $("body").show();
+      }
     }
   };
 
