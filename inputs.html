@@ -352,7 +352,7 @@
       };
 
       for (var i = 0; i < players.length; i++) {
-        newTotals[players[i].drafterName] += players[i].score;
+        newTotals[players[i].drafterName] += players[i].score * 1;
       }
 
       for (var newScore in newTotals) {
