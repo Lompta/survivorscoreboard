@@ -82,10 +82,6 @@ wss.on('connection', (ws) => {
       });
     }
     else {
-      var splitData = data.split(":");
-      var name = splitData[0];
-      var score = splitData[1];
-
       // Database initialization with heroku postgres
       const { Client } = require('pg');
 
@@ -95,24 +91,50 @@ wss.on('connection', (ws) => {
       });
 
       dbClient.connect();
-      // score update involves first and last name, so is contestant
-      if (splitData[0].split(" ").length > 1) {
-        // Change some scores!
-        dbClient.query("UPDATE player SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
-          if (err) throw err;
-          dbClient.end();
-        });
-      } else {
-        // Change some drafter scores!
-        dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
+
+      if (data[0] === "!") {
+        // we are managing the elimination of a player
+        var eliminatedPlayerName = data.substring(1);
+
+        dbClient.query("UPDATE player SET eliminated = True where name = '" + eliminatedPlayerName + "'", (err, res) => {
           if (err) throw err;
           dbClient.end();
         });
       }
+      else if (data[0] === ".") {
+        // we are managing the un-elimination of a player (oops!)
+        var revivedPlayerName = data.substring(1);
 
-      wss.clients.forEach((client) => {
-        client.send(data);
-      });
+        dbClient.query("UPDATE player SET eliminated = False where name = '" + revivedPlayerName + "'", (err, res) => {
+          if (err) throw err;
+          dbClient.end();
+        });
+      }
+      // we are just updating a score
+      else {
+        var splitData = data.split(":");
+        var name = splitData[0];
+        var score = splitData[1];
+
+        // score update involves first and last name, so is contestant
+        if (splitData[0].split(" ").length > 1) {
+          // Change some scores!
+          dbClient.query("UPDATE player SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
+            if (err) throw err;
+            dbClient.end();
+          });
+        } else {
+          // Change some drafter scores!
+          dbClient.query("UPDATE drafter SET score = " + score + " WHERE name = '" + name + "'", (err, res) => {
+            if (err) throw err;
+            dbClient.end();
+          });
+        }
+
+        wss.clients.forEach((client) => {
+          client.send(data);
+        });
+      }
     }
   });
 });
